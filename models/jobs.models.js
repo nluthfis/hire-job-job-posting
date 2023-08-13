@@ -46,9 +46,26 @@ const getJobByTitleAndType = async (job_title, job_type, sort) => {
   }
 };
 
+const insertCompany = async (payload) => {
+  try {
+    const query = await db`INSERT INTO company ${db(
+      payload,
+      "user_id",
+      "company_name",
+      "location",
+      "company_employee",
+      "company_logo"
+    )} returning *`;
+    return query;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   getJobByTitle,
   getJobByType,
   getJobByTitleAndType,
   getAllJob,
+  insertCompany,
 };
